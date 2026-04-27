@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# piper.sh - Automates Piper TTS setup on Ubuntu
+
+echo "Starting Galacticord Piper Setup..."
+
+# 1. Update bot dependencies
+echo "[1/4] Updating bot dependencies..."
+git pull origin main
+npm install
+
+# 2. Install Piper (if not found)
+if ! command -v piper &> /dev/null
+then
+    echo "[2/4] Piper not found. Installing..."
+    cd ~
+    wget -q --show-progress https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz
+    tar -xf piper_linux_x86_64.tar.gz
+    sudo cp -r piper/* /usr/local/bin/
+    sudo ldconfig
+    rm piper_linux_x86_64.tar.gz
+    rm -rf piper
+    echo "Piper installed successfully."
+else
+    echo "[2/4] Piper is already installed."
+fi
+
+# 3. Download Voice Models
+echo "[3/4] Downloading Voice Models..."
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd "$SCRIPT_DIR"
+mkdir -p models
+
+# US Voices
+VOICES=(
+    "en_US-amy-medium"
+    "en_US-kathleen-low"
+    "en_US-lessac-medium"
+    "en_US-libritts-high"
+    "en_US-ryan-medium"
+    "en_US-joe-medium"
+)
+
+download_voice() {
+    local name=$1
+    local url_onnx=$2
+    local url_json=$3
+
+    # SELF-HEALING: If file exists but is 0 bytes (corrupt), remove it
+    if [ -f "models/${name}.onnx" ] && [ ! -s "models/${name}.onnx" ]; then
+        echo "Detected corrupted model ${name}. Cleaning up..."
+        rm "models/${name}.onnx" "models/${name}.onnx.json" 2>/dev/null
+    fi
+
+    if [ ! -f "models/${name}.onnx" ]; then
+        echo "Downloading ${name}..."
+        local q=""
+        [[ "$url_onnx" != *"?"* ]] && q="?download=true"
+        
+        wget -q --show-progress -O "models/${name}.onnx" "${url_onnx}${q}"
+        wget -q --show-progress -O "models/${name}.onnx.json" "${url_json}${q}"
+    else
+        echo "Voice ${name} already exists."
+    fi
+}
+
+# Process US Voices (Standard HuggingFace)
+for voice in "${VOICES[@]}"; do
+    case $voice in
+        "en_US-amy-medium") B="en/en_US/amy/medium" ;; 
+        "en_US-kathleen-low") B="en/en_US/kathleen/low" ;; 
+        "en_US-lessac-medium") B="en/en_US/lessac/medium" ;; 
+        "en_US-libritts-high") B="en/en_US/libritts/high" ;; 
+        "en_US-ryan-medium") B="en/en_US/ryan/medium" ;; 
+        "en_US-joe-medium") B="en/en_US/joe/medium" ;; 
+    esac
+    download_voice "$voice" \
+        "https://huggingface.co/rhasspy/piper-voices/resolve/main/${B}/${voice}.onnx?download=true" \
+        "https://huggingface.co/rhasspy/piper-voices/resolve/main/${B}/${voice}.onnx.json?download=true"
+done
+
+# Process All Voices from NashCentral
+BASE_URL="https://nashcentral.duckdns.org/spres/piper"
+echo "[3.5/4] Scrapping and downloading all voices from NashCentral..."
+
+# Fetch the page, extract links ending in .onnx, and remove the extension to get names
+NASH_VOICES=$(curl -s "${BASE_URL}/" | grep -oP 'href="\K[^"]+\.onnx(?=")' | sed 's/\.onnx//')
+
+for voice in $NASH_VOICES; do
+    download_voice "$voice" \
+        "${BASE_URL}/${voice}.onnx" \
+        "${BASE_URL}/${voice}.onnx.json"
+done
+
+echo "---------------------------------------------------"
+echo "[4/4] Setup Complete!"
+echo "---------------------------------------------------"
