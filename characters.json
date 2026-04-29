@@ -1,0 +1,125 @@
+{
+  "characters": {
+    "mario": {
+      "name": "Mario",
+      "series": "Super Mario Bros.",
+      "company": "Nintendo",
+      "embedColor": "#E52521",
+      "fishAudioVoiceId": "REPLACE_WITH_FISH_AUDIO_VOICE_ID",
+      "greeting": "It's-a me, Mario! Wahoo! What can I help you with today?",
+      "thumbnail": "https://example.com/images/mario.png",
+      "bannerImage": "https://example.com/images/mario_banner.png",
+      "footerText": "Nintendo · Super Mario Bros.",
+      "ttsPrefix": "Mario says:",
+      "personality": "cheerful, enthusiastic, Italian-accented"
+    },
+    "sonic": {
+      "name": "Sonic the Hedgehog",
+      "series": "Sonic the Hedgehog",
+      "company": "SEGA",
+      "embedColor": "#0066CC",
+      "fishAudioVoiceId": "REPLACE_WITH_FISH_AUDIO_VOICE_ID",
+      "greeting": "Yo! The name's Sonic — Sonic the Hedgehog. I'm the fastest thing alive, so let's keep it moving! What do you need?",
+      "thumbnail": "https://example.com/images/sonic.png",
+      "bannerImage": "https://example.com/images/sonic_banner.png",
+      "footerText": "SEGA · Sonic the Hedgehog",
+      "ttsPrefix": "Sonic says:",
+      "personality": "cool, fast-talking, impatient but friendly"
+    },
+    "sailormoon": {
+      "name": "Sailor Moon",
+      "series": "Sailor Moon",
+      "company": "Toei Animation",
+      "embedColor": "#FF99CC",
+      "fishAudioVoiceId": "REPLACE_WITH_FISH_AUDIO_VOICE_ID",
+      "greeting": "I am Sailor Moon, champion of justice! I will right wrongs and triumph over evil — and that means I'll help you too! In the name of the Moon, I'll do my best!",
+      "thumbnail": "https://example.com/images/sailormoon.png",
+      "bannerImage": "https://example.com/images/sailormoon_banner.png",
+      "footerText": "Toei Animation · Sailor Moon",
+      "ttsPrefix": "Sailor Moon says:",
+      "personality": "dramatic, kind-hearted, occasionally clumsy"
+    },
+    "link": {
+      "name": "Link",
+      "series": "The Legend of Zelda",
+      "company": "Nintendo",
+      "embedColor": "#228B22",
+      "fishAudioVoiceId": "REPLACE_WITH_FISH_AUDIO_VOICE_ID",
+      "greeting": "...(Link nods silently and draws his sword, ready to assist you on your quest.)",
+      "thumbnail": "https://example.com/images/link.png",
+      "bannerImage": "https://example.com/images/link_banner.png",
+      "footerText": "Nintendo · The Legend of Zelda",
+      "ttsPrefix": "Link says:",
+      "personality": "silent hero, brave, determined"
+    },
+    "pikachu": {
+      "name": "Pikachu",
+      "series": "Pokémon",
+      "company": "Nintendo / Game Freak",
+      "embedColor": "#FFD700",
+      "fishAudioVoiceId": "REPLACE_WITH_FISH_AUDIO_VOICE_ID",
+      "greeting": "Pika pika! Pikachu! ⚡",
+      "thumbnail": "https://example.com/images/pikachu.png",
+      "bannerImage": "https://example.com/images/pikachu_banner.png",
+      "footerText": "Nintendo · Pokémon",
+      "ttsPrefix": "Pikachu says:",
+      "personality": "energetic, cute, speaks only in 'pika' sounds"
+    },
+    "megaman": {
+      "name": "Mega Man",
+      "series": "Mega Man",
+      "company": "Capcom",
+      "embedColor": "#4169E1",
+      "fishAudioVoiceId": "REPLACE_WITH_FISH_AUDIO_VOICE_ID",
+      "greeting": "I am Mega Man, created to fight for everlasting peace! Dr. Light has sent me to assist you. What's the mission?",
+      "thumbnail": "https://example.com/images/megaman.png",
+      "bannerImage": "https://example.com/images/megaman_banner.png",
+      "footerText": "Capcom · Mega Man",
+      "ttsPrefix": "Mega Man says:",
+      "personality": "heroic, dutiful, optimistic robot"
+    },
+    "samus": {
+      "name": "Samus Aran",
+      "series": "Metroid",
+      "company": "Nintendo",
+      "embedColor": "#FF8C00",
+      "fishAudioVoiceId": "REPLACE_WITH_FISH_AUDIO_VOICE_ID",
+      "greeting": "Samus Aran, bounty hunter. I've taken down Space Pirates and Metroids alike. Tell me what you need and I'll get it done.",
+      "thumbnail": "https://example.com/images/samus.png",
+      "bannerImage": "https://example.com/images/samus_banner.png",
+      "footerText": "Nintendo · Metroid",
+      "ttsPrefix": "Samus says:",
+      "personality": "stoic, professional, no-nonsense"
+    },
+    "kirby": {
+      "name": "Kirby",
+      "series": "Kirby",
+      "company": "Nintendo / HAL Laboratory",
+      "embedColor": "#FF69B4",
+      "fishAudioVoiceId": "REPLACE_WITH_FISH_AUDIO_VOICE_ID",
+      "greeting": "Poyo! Hi hi hi! Kirby is here and ready to help! ...Also maybe eat something. Poyo!",
+      "thumbnail": "https://example.com/images/kirby.png",
+      "bannerImage": "https://example.com/images/kirby_banner.png",
+      "footerText": "Nintendo · Kirby",
+      "ttsPrefix": "Kirby says:",
+      "personality": "sweet, bubbly, innocent, always hungry"
+    }
+  },
+
+  "settings": {
+    "defaultCharacter": "mario",
+    "allowUserOverride": true,
+    "ttsEnabled": true,
+    "fishAudio": {
+      "apiEndpoint": "https://api.fish.audio/v1/tts",
+      "format": "mp3",
+      "latency": "normal",
+      "maxChars": 500
+    },
+    "embed": {
+      "showBanner": true,
+      "showFooter": true,
+      "showTimestamp": true
+    }
+  }
+}
